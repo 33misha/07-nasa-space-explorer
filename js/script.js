@@ -261,24 +261,26 @@
     url.search = new URLSearchParams({ api_key: apiKey, start_date: start, end_date: end, thumbs: 'true' });
     try {
       const response = await fetch(url, { signal: controller.signal });
-      if (!response.ok) {
-        if (response.status === 429) throw new Error('NASA’s request limit has been reached. Try again later or add your free NASA API key in API settings.');
+      const rateLimited = response.status === 429;
+      if (!response.ok && !rateLimited) {
         if (response.status === 401 || response.status === 403) throw new Error('NASA could not accept this API key. Check your key in API settings, then try again.');
         throw new Error(`NASA could not complete this request (HTTP ${response.status}). Try again shortly or choose an earlier nine-day range.`);
       }
-      let data = await response.json();
+      let data = rateLimited ? null : await response.json();
       let usedArchive = false;
-      // During NASA's migration, the legacy endpoint sometimes returns its site
-      // logo for every date. Retrieve real entries from NASA's documented archive.
-      if (Array.isArray(data) && data.some((item) => item?.title === 'NASA Science'
-        && String(item.url).includes('nasa-logo'))) {
+      // NASA's archive also works when the shared API key reaches its quota,
+      // or the legacy endpoint returns site logos during its migration.
+      if (rateLimited || (Array.isArray(data) && data.some((item) => item?.title === 'NASA Science'
+        && String(item.url).includes('nasa-logo')))) {
         const archiveUrl = new URL('https://science.nasa.gov/wp-json/wp/v2/apod-basic');
         archiveUrl.search = new URLSearchParams({
           date_from: start.replaceAll('-', '').slice(2),
           date_to: end.replaceAll('-', '').slice(2)
         });
         const archiveResponse = await fetch(archiveUrl, { signal: controller.signal });
-        if (!archiveResponse.ok) throw new Error('NASA’s archive is temporarily unavailable. Try again shortly.');
+        if (!archiveResponse.ok) throw new Error(rateLimited
+          ? 'NASA’s request limit has been reached and its archive is temporarily unavailable. Try again shortly or add your free NASA API key in API settings.'
+          : 'NASA’s archive is temporarily unavailable. Try again shortly.');
         data = await archiveResponse.json();
         usedArchive = true;
       }

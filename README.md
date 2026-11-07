@@ -31,7 +31,7 @@ APOD's archive starts on **June 16, 1995**. Future dates and incomplete nine-day
 
 The app requests the [NASA APOD API](https://api.nasa.gov/#apod) with `start_date`, `end_date`, and `thumbs=true`, plus a valid `api_key`. The bundled default is NASA's public `DEMO_KEY`, so no personal key is required to begin.
 
-The public demo key has a shared, restricted quota. If NASA reports a rate limit, wait before retrying or obtain a free personal key from [NASA's API portal](https://api.nasa.gov/). Use the app's optional API-key setting to save your key in this browser's `localStorage`; it is not written into the source code or committed to Git. Save an empty key to return to `DEMO_KEY`. Clearing browser storage also removes the saved key. The app can still use the demo key if browser storage is unavailable.
+The public demo key has a shared, restricted quota. If NASA reports a rate limit, the app automatically requests the same nine days from NASA Science's official archive. No personal key is needed for that fallback. You can also obtain a free personal key from [NASA's API portal](https://api.nasa.gov/). Use the app's optional API-key setting to save your key in this browser's `localStorage`; it is not written into the source code or committed to Git. Save an empty key to return to `DEMO_KEY`. Clearing browser storage also removes the saved key. The app can still use the demo key if browser storage is unavailable.
 
 This is a client-side project: a supplied key is visible to that browser and is sent to NASA when fetching data. Do not enter a key that must be kept secret. The app handles failed requests with an actionable message and restores the controls for retrying.
 
@@ -49,7 +49,7 @@ NASA's migration can also make the legacy API return generic “NASA Science” 
 | NASA branding | Provided NASA logo, NASA-inspired blue/red palette, clear typography, consistent controls. |
 | Loading message | Visible loading status while the request is pending; removed after success or failure. |
 | LevelUp: video entries | Video entries stay in the nine-day gallery and have an accessible way to watch. |
-| LevelUp: random space fact | A random fact appears in the “Did you know?” section on page load. |
+| LevelUp: random space fact | A random fact appears above the gallery in the “Did you know?” section on page load. |
 | LevelUp: hover zoom | Smooth CSS scaling on gallery images, respecting reduced-motion preferences. |
 | Reflection: APIs | Substantive answer in [REFLECTIONS.md](REFLECTIONS.md) and the printable submission. |
 | Reflection: debugging | Concrete debugging plan and project example in the reflection document. |
@@ -91,7 +91,7 @@ If the browser is installed in a nonstandard location, set `CHROME_PATH` to its 
 
 Use browser DevTools and test both live API responses and controlled failure cases. A checklist describes what to verify; checked results should be recorded only after running the checks.
 
-Verified on November 6, 2026: all 13 automated browser tests passed. The public GitHub Pages site was checked in a fresh incognito browser: all nine current images loaded, a full-size image opened with its explanation, and the January 1–9, 2025 window displayed its video entry. No JavaScript exceptions or failed network requests occurred. Phone, tablet, and desktop layouts were checked for horizontal overflow.
+Verified on November 6, 2026: all 15 automated browser tests passed, including recovery from API rate limits and fact placement above the gallery on phones, tablets, and desktops. Live browser checks loaded all nine current images, opened a full-size image with its explanation, and displayed the January 1–9, 2025 video entry. No JavaScript exceptions occurred. The public GitHub Pages site was also checked in a fresh incognito browser.
 
 - A complete historical window returns exactly nine cards with matching dates, titles, and visuals.
 - Changing the selection and submitting replaces the previous gallery.

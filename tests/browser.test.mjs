@@ -260,7 +260,7 @@ await test('NASA Space Explorer browser regression', { timeout: 120000 }, async 
     });
 
     await t.test('shows useful HTTP errors and retry recovers the same range', async () => {
-      for (const [status, pattern] of [[429, /request limit/], [401, /API key/], [403, /API key/], [500, /HTTP 500/]]) {
+      for (const [status, pattern] of [[401, /API key/], [403, /API key/], [500, /HTTP 500/]]) {
         await open();
         const start = (await requested()).searchParams.get('start_date');
         await reply({}, status);
@@ -274,6 +274,33 @@ await test('NASA Space Explorer browser regression', { timeout: 120000 }, async 
         await ready();
         assert.equal(await evaluate('errorMessage.hidden'), true);
       }
+    });
+
+    await t.test('recovers from a rate-limited API with nine archive entries', async () => {
+      await open();
+      const start = (await requested()).searchParams.get('start_date');
+      await reply({}, 429);
+      await waitFor(browser, '__apodTest.requests.length === 2');
+      const archive = await requested();
+      assert.equal(archive.origin + archive.pathname, 'https://science.nasa.gov/wp-json/wp/v2/apod-basic');
+      assert.equal(archive.searchParams.get('date_from'), start.replaceAll('-', '').slice(2));
+      assert.equal(archive.searchParams.get('date_to'), shift(start, 8).replaceAll('-', '').slice(2));
+      assert.equal(archive.searchParams.has('api_key'), false);
+      assert.equal(await evaluate('loadingMessage.hidden || !errorMessage.hidden'), false);
+      await reply(entriesFor(start));
+      await ready();
+      assert.equal(await evaluate('errorMessage.hidden && !fetchButton.disabled'), true);
+      assert.match(await evaluate('gallerySummary.textContent'), /NASA Science archive/);
+    });
+
+    await t.test('reports archive failure after a rate limit and restores the controls', async () => {
+      await open();
+      await reply({}, 429);
+      await waitFor(browser, '__apodTest.requests.length === 2');
+      await reply({}, 503);
+      await waitFor(browser, '!errorMessage.hidden && loadingMessage.hidden');
+      assert.match(await evaluate('errorText.textContent'), /request limit.*archive is temporarily unavailable/);
+      assert.equal(await evaluate('fetchButton.disabled || startDate.disabled || endDate.disabled'), false);
     });
 
     await t.test('handles malformed, incomplete, network, and timed-out responses', async () => {
@@ -330,6 +357,8 @@ await test('NASA Space Explorer browser regression', { timeout: 120000 }, async 
       for (const width of [375, 768, 1440]) {
         await browser.command('Emulation.setDeviceMetricsOverride', { width, height: 900, deviceScaleFactor: 1, mobile: width === 375 });
         assert.equal(await evaluate('document.documentElement.scrollWidth <= window.innerWidth'), true, `Gallery overflows at ${width}px`);
+        assert.equal(await evaluate('document.querySelector(".space-fact").getBoundingClientRect().bottom <= document.querySelector(".gallery-section").getBoundingClientRect().top'), true,
+          `The random space fact must appear above the gallery at ${width}px`);
         await openCard(0);
         assert.equal(await evaluate('document.documentElement.scrollWidth <= window.innerWidth'), true, `Modal overflows at ${width}px`);
         // Dialog must stay inside the viewport; content may scroll vertically.

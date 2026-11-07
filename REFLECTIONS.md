@@ -13,7 +13,7 @@
 Yes. This project includes all three:
 
 - **APOD video entries:** Video days remain in the nine-day gallery, with a video preview or fallback and a clear link to watch the content.
-- **Random space fact:** A “Did You Know?” section selects a fact randomly when the page loads.
+- **Random space fact:** A “Did You Know?” section above the gallery selects a fact randomly when the page loads.
 - **Hover zoom:** Gallery images scale smoothly on hover. Reduced-motion preferences are respected.
 
 ## 2. Working with a real API
