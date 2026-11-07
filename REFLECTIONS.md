@@ -4,9 +4,9 @@
 
 ## 1. Paste your website's URL
 
-**Expected GitHub Pages URL:** <https://33misha.github.io/07-nasa-space-explorer/>
+**GitHub Pages URL:** <https://33misha.github.io/07-nasa-space-explorer/>
 
-**Deployment status:** This address must be verified after publishing. Confirm the actual URL in the repository's Settings → Pages and test it in a private/incognito window. Replace this status with the verified result before submission. The assignment requires a live website link, not a repository or Codespace link.
+**Deployment status:** Published and verified on November 6, 2026 in a fresh incognito browser. The public site loaded nine real images, opened the full-size image modal, and displayed the video entry in the January 1–9, 2025 range.
 
 ## 1B. Did you do any of the LevelUps?
 
@@ -46,7 +46,7 @@ One lesson from this project: a successful API request is only the beginning. Da
 
 I used AI assistance to support the implementation and review process. The project gave me a concrete way to connect API data, DOM updates, CSS, and debugging decisions in one application.
 
-Project link after deployment verification: https://33misha.github.io/07-nasa-space-explorer/
+Project link: https://33misha.github.io/07-nasa-space-explorer/
 
 #WebDevelopment #JavaScript #NASA #APIs #LearningInPublic
 
@@ -55,9 +55,7 @@ Project link after deployment verification: https://33misha.github.io/07-nasa-sp
 ## Before submitting
 
 1. Review and personalize the reflection drafts.
-2. Publish the repository with GitHub Pages and verify the live site in a private browser.
-3. Replace the deployment-status note above with the confirmed public URL and result.
-4. Update the matching answers in `submission.html`, then print that document to PDF.
-5. Upload the completed PDF to the Project 7 submission page on HQ.
+2. If you change the answers, update `submission.html` and print it to PDF again.
+3. Upload `submission.pdf` to the Project 7 submission page on HQ. The website is already published and verified.
 
 The assignment awards credit for the LinkedIn draft; actually publishing it is optional.

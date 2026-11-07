@@ -4,6 +4,8 @@ A responsive Astronomy Picture of the Day (APOD) explorer built with HTML, CSS, 
 
 This is an educational project using NASA's public data. It is not an official NASA application.
 
+**Live website:** <https://33misha.github.io/07-nasa-space-explorer/>
+
 ## Run locally
 
 There are no application dependencies, build steps, or accounts required to open the app. Serve this folder with a static web server; for example:
@@ -89,7 +91,7 @@ If the browser is installed in a nonstandard location, set `CHROME_PATH` to its 
 
 Use browser DevTools and test both live API responses and controlled failure cases. A checklist describes what to verify; checked results should be recorded only after running the checks.
 
-Verified on November 6, 2026: all 13 automated browser tests passed. A separate live browser check loaded all nine current images, opened a full-size image with its explanation, and displayed the video entry in the January 1–9, 2025 window. No JavaScript exceptions occurred. Phone, tablet, and desktop layouts were checked for horizontal overflow.
+Verified on November 6, 2026: all 13 automated browser tests passed. The public GitHub Pages site was checked in a fresh incognito browser: all nine current images loaded, a full-size image opened with its explanation, and the January 1–9, 2025 window displayed its video entry. No JavaScript exceptions or failed network requests occurred. Phone, tablet, and desktop layouts were checked for horizontal overflow.
 
 - A complete historical window returns exactly nine cards with matching dates, titles, and visuals.
 - Changing the selection and submitting replaces the previous gallery.
@@ -106,11 +108,11 @@ Verified on November 6, 2026: all 13 automated browser tests passed. A separate 
 
 ## Publish with GitHub Pages
 
-The assignment asks for a public GitHub Pages link. The expected address for this repository is:
+The project is published at:
 
 **<https://33misha.github.io/07-nasa-space-explorer/>**
 
-This is an **expected URL until deployment is verified**. A URL written in the documentation does not establish that the site is live.
+Deployment and public access were verified on November 6, 2026. GitHub Pages is configured to publish `main` from `/(root)`. Future pushes to that branch update the website. To reproduce the setup:
 
 1. Commit the finished project and push it to the repository's `main` branch.
 2. In the GitHub repository, open **Settings → Pages**.
@@ -123,7 +125,7 @@ Use the live Pages URL in the assignment, rather than the repository or Codespac
 
 ## Written submission
 
-Review and personalize [REFLECTIONS.md](REFLECTIONS.md). Open [submission.html](submission.html) in a browser, update the deployment status after verifying the live site, and print to PDF using the browser's print dialog. The document includes print styles and the required answers.
+The two-page [submission.pdf](submission.pdf) contains the verified website URL, all three LevelUps, and all required reflection answers. Review and personalize the reflection wording before submitting. Editable versions are in [REFLECTIONS.md](REFLECTIONS.md) and [submission.html](submission.html); after changing the answers, open the HTML document and print it to PDF again.
 
 Upload the completed PDF to the project's submission page on HQ. A LinkedIn post is optional; the written draft is included for the reflection requirement. This repository does not post to LinkedIn or upload coursework automatically.
 
