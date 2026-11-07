@@ -1,0 +1,12 @@
+{
+  "name": "nasa-space-explorer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NASA APOD gallery with nine-day date ranges and accessible media details.",
+  "scripts": {
+    "test": "node --test tests/browser.test.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Printable Project 7 NASA Space Explorer submission and reflection drafts.">
+  <title>Project 7 — NASA Space Explorer Submission</title>
+  <style>
+    :root { color-scheme: light; font-family: Arial, Helvetica, sans-serif; color: #17243b; background: #e9edf3; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 38px 24px; line-height: 1.65; }
+    main { max-width: 850px; margin: auto; padding: 56px 62px; background: white; box-shadow: 0 12px 48px #112c5020; }
+    header { border-top: 7px solid #e03c31; padding-top: 24px; margin-bottom: 30px; }
+    .eyebrow { font-size: 12px; font-weight: bold; letter-spacing: 2px; color: #0b3d91; text-transform: uppercase; }
+    h1 { font-size: 37px; line-height: 1.15; letter-spacing: -1px; margin: 12px 0; }
+    .subtitle { color: #536279; margin: 0; }
+    .notice { border-left: 4px solid #0b3d91; background: #f1f5fa; padding: 16px 20px; font-size: 13px; margin: 24px 0; }
+    h2 { color: #0b3d91; font-size: 20px; line-height: 1.35; margin: 32px 0 12px; }
+    p { margin: 0 0 14px; }
+    .prompt { font-size: 13px; color: #536279; border-left: 2px solid #c9d5e5; padding-left: 14px; margin: 0 0 18px; }
+    a { color: #0b3d91; overflow-wrap: anywhere; }
+    ul, ol { padding-left: 22px; margin: 12px 0 18px; }
+    li { margin-bottom: 8px; }
+    .post { background: #f7f9fc; border: 1px solid #dbe3ee; padding: 22px; }
+    .status { font-size: 13px; color: #536279; }
+    footer { border-top: 1px solid #dbe3ee; margin-top: 35px; padding-top: 18px; color: #536279; font-size: 12px; }
+    @media (max-width: 600px) { body { padding: 0; } main { padding: 30px 24px; } h1 { font-size: 30px; } }
+    @page { size: A4; margin: 18mm 18mm 20mm; }
+    @media print {
+      :root { background: white; }
+      body { padding: 0; font-size: 10pt; line-height: 1.4; }
+      main { max-width: none; padding: 0; box-shadow: none; }
+      header { padding-top: 15px; margin-bottom: 16px; }
+      h1 { font-size: 29pt; }
+      h2 { font-size: 15pt; break-after: avoid; margin-top: 18px; }
+      p { margin-bottom: 10px; }
+      .notice { margin: 18px 0; padding: 12px 15px; }
+      .prompt { font-size: 9pt; }
+      .new-page { break-before: page; }
+      li, .post p { break-inside: avoid; }
+      a { text-decoration: none; }
+      .post { padding: 16px; }
+      footer { margin-top: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="eyebrow">Web Development · Project 7</div>
+      <h1>NASA Space Explorer</h1>
+      <p class="subtitle">Project submission &amp; reflections</p>
+    </header>
+
+    <aside class="notice">
+      <strong>Reflection draft for review.</strong> These answers describe the completed project. Review the first-person wording before submitting.
+    </aside>
+
+    <section>
+      <h2>1. Website URL</h2>
+      <p><a href="https://33misha.github.io/07-nasa-space-explorer/">https://33misha.github.io/07-nasa-space-explorer/</a></p>
+      <p class="status"><strong>Expected URL — deployment requires verification.</strong> Confirm this address in GitHub Settings → Pages, then open it in a private browser. Replace this note with the confirmed deployment result before submitting. The required link is the public website, not the repository or Codespace.</p>
+    </section>
+
+    <section>
+      <h2>1B. LevelUps completed</h2>
+      <ul>
+        <li><strong>APOD videos:</strong> Video entries stay in the nine-day gallery with a preview or fallback and a clear way to watch.</li>
+        <li><strong>Random space fact:</strong> A “Did You Know?” section randomly selects a fact on page load.</li>
+        <li><strong>Hover zoom:</strong> Gallery images scale smoothly on hover, with reduced-motion preferences respected.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>2. Working with a real API</h2>
+      <p class="prompt">What was it like using NASA's APOD API in your project? What challenges did you face when trying to connect, fetch data, or handle the results?</p>
+      <p>Working with NASA's APOD API turns this app from a static page into something that responds to real information. A visitor's dates become request parameters, and the returned objects supply the gallery's titles, dates, media, and explanations. One lesson is that fetching data and displaying useful data are separate jobs. A response must be checked before it can be trusted to represent the selected window.</p>
+      <p>The nine-day requirement makes that especially clear. The start and end dates are inclusive, so they must be eight calendar days apart. Using calendar dates also avoids off-by-one errors around daylight saving changes. After the request finishes, the app checks that the expected dates are actually present. A day that NASA has not published yet needs an understandable message, not a silent eight-card result.</p>
+      <p>APOD is also not a uniform collection of image files. Some days are videos, image fields can differ, and an entry may point to a NASA article. An upstream migration caused the legacy API to return generic NASA logos titled “NASA Science.” The app detects those records and requests the same dates from NASA Science's official APOD endpoint. Loading, network failures, API-key errors, and quota limits need clear feedback as well. I used AI assistance to help implement and review these cases while keeping the app's behavior tied to the assignment and actual API fields. A dependable API app needs validation and recovery as well as a successful fetch.</p>
+    </section>
+
+    <section class="new-page">
+      <h2>3. Debugging interview plan</h2>
+      <p class="prompt">How do you approach debugging when something doesn't work as expected? Think about something in this project that did not work, and explain how you would identify and fix the cause.</p>
+      <p>My answer would start with a repeatable process: reproduce the problem, state the expected result, inspect the evidence, isolate the cause, make a focused change, and check the result. I would use the browser Console to find JavaScript errors and the Network panel to see whether a request was sent, which parameters it used, and what NASA returned. This separates a broken click handler from a failed request or a rendering problem.</p>
+      <p>A concrete example from development is an upstream response that looked successful but contained the wrong content. The legacy APOD endpoint returned nine records titled “NASA Science,” pointing to a NASA logo. Counting items alone would have passed the gallery check. Comparing the response titles and media URLs with the requested astronomy content exposed an upstream migration, rather than a CSS defect. The app detects those generic records and requests the same dates from NASA Science's official APOD endpoint. Development checks confirmed that endpoint could return nine real entries, including a video in a historical window.</p>
+      <p>I would then check a normal historical range and deliberately test an invalid range, a video day, an incomplete response, and a failed request. For an eight-card result, I would compare requested dates with returned dates before changing layout code. After a fix, I would repeat the original reproduction and one nearby case to look for regressions. In an interview, I would distinguish development checks performed with AI assistance from checks I personally ran, and describe only results I can explain from the evidence.</p>
+    </section>
+
+    <section>
+      <h2>4. LinkedIn post draft</h2>
+      <p class="prompt">Reflect on what you built and learned, what surprised you about APIs, and how AI supported your process. Publishing the post is optional.</p>
+      <div class="post">
+        <p>I built a NASA Space Explorer using HTML, CSS, and JavaScript! The app connects to NASA's Astronomy Picture of the Day API and turns a selected nine-day window into a gallery of space images and videos. Each entry opens a detailed view with its title, date, and explanation.</p>
+        <p>One lesson from this project: a successful API request is only the beginning. Date boundaries, different media types, loading states, missing data, and quota limits all affect whether an app feels reliable. I also added a random space fact and smooth image zoom, with keyboard access and responsive layouts in mind.</p>
+        <p>I used AI assistance to support the implementation and review process. The project gave me a concrete way to connect API data, DOM updates, CSS, and debugging decisions in one application.</p>
+        <p>Project link after deployment verification:<br><a href="https://33misha.github.io/07-nasa-space-explorer/">https://33misha.github.io/07-nasa-space-explorer/</a></p>
+        <p>#WebDevelopment #JavaScript #NASA #APIs #LearningInPublic</p>
+      </div>
+    </section>
+
+    <footer>
+      Before submission: personalize these drafts, verify the live GitHub Pages URL, update its status, and export this document using the browser's Print → Save as PDF option. Upload the completed PDF to the Project 7 submission page on HQ. This document does not publish a LinkedIn post or submit coursework automatically.
+    </footer>
+  </main>
+</body>
+</html>
